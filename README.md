@@ -1,71 +1,36 @@
-# ggpackage README
+<p align="center">
+<img src="images/banner.png" alt="ggpackage Banner">
+</p>
+<p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=ggarpelli.ggpackage">
+<img src="https://img.shields.io/visual-studio-marketplace/v/ggarpelli.ggpackage?style=for-the-badge&logo=visualstudiocode&label=VS%20Marketplace&color=blue" alt="Version">
+</a>
+<a href="https://marketplace.visualstudio.com/items?itemName=ggarpelli.ggpackage">
+<img src="https://img.shields.io/visual-studio-marketplace/i/ggarpelli.ggpackage?style=for-the-badge&color=green" alt="Installs">
+</a>
+<a href="https://marketplace.visualstudio.com/items?itemName=ggarpelli.ggpackage&ssr=false#review-details">
+<img src="https://img.shields.io/visual-studio-marketplace/r/ggarpelli.ggpackage?style=for-the-badge&color=purple" alt="Rating">
+</a>
+</p>
 
-This is the README for your extension "ggpackage". After writing up a brief description, we recommend including the following sections.
+# ggpackage: The Smart package.xml Generator
 
-## Features
+Tired of manually writing `package.xml` for every deployment? ggpackage is the ultimate tool to automate the creation of Salesforce manifests, right from your VS Code.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+With just a few clicks, select files, folders, or changes from Source Control and instantly generate a clean, sorted, and ready-to-use `package.xml`.
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
+✨ **Features**
 ---
+✅ **Contextual Generation:** Works where you need it. Generate your manifest from the File Explorer or directly from the Source Control view (modified/staged files).
 
-## Following extension guidelines
+📂 **Multiple Selections Support:** Select a single file, multiple files at once, or even entire folders (like classes, lwc, or an object's folder) to generate a complete manifest in bulk.
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
+💅 **Automatic Formatting:** The generated `package.xml` is always well-formatted and sorted alphabetically by metadata type and component name, making it easy to read and version control.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+🚀 **Quick and Intuitive Access:** No complicated commands. The functionality is just a right-click away in the context menu, exactly where you work.
 
-## Working with Markdown
+**Release History**
+---
+For a detailed list of all changes, please see the [CHANGELOG.md](CHANGELOG.md) file.
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+Enjoy!

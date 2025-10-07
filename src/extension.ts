@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-// ... (TODOS OS SEUS MAPAS E FUNÇÕES CONTINUAM AQUI, SEM MUDANÇAS)
+// ... (ALL YOUR MAPS AND FUNCTIONS REMAIN HERE, UNCHANGED)
 const metadataMap = new Map<string, string>([
     ['applications', 'CustomApplication'], ['appMenus', 'AppMenu'], ['approvalProcesses', 'ApprovalProcess'],
     ['assignmentRules', 'AssignmentRules'], ['aura', 'AuraDefinitionBundle'], ['authproviders', 'AuthProvider'],
@@ -42,7 +42,6 @@ const objectSubtypeMap = new Map<string, string>([
     ['indexes', 'Index']
 ]);
 
-
 function getUrisFromArgs(...args: any[]): vscode.Uri[] {
     if (args.length === 0) { return []; }
     if (Array.isArray(args[0]) && args[0].length > 0 && args[0][0].resourceUri) {
@@ -58,9 +57,9 @@ function getUrisFromArgs(...args: any[]): vscode.Uri[] {
 }
 
 /**
- * Função recursiva para encontrar todos os arquivos dentro de um diretório.
- * @param dirUri URI do diretório a ser lido.
- * @returns Uma Promise com um array de URIs de todos os arquivos encontrados.
+ * Recursively finds all files within a directory.
+ * @param dirUri The URI of the directory to read.
+ * @returns A Promise with an array of URIs for all found files.
  */
 async function findFilesInDir(dirUri: vscode.Uri): Promise<vscode.Uri[]> {
     const files: vscode.Uri[] = [];
@@ -77,9 +76,9 @@ async function findFilesInDir(dirUri: vscode.Uri): Promise<vscode.Uri[]> {
 }
 
 /**
- * Expande uma lista de URIs, convertendo quaisquer diretórios em uma lista de todos os arquivos dentro deles.
- * @param uris URIs selecionados pelo usuário.
- * @returns Uma Promise com uma lista plana de URIs contendo apenas arquivos.
+ * Expands a list of URIs, converting any directories into a list of all files within them.
+ * @param uris The URIs selected by the user.
+ * @returns A Promise with a flat list of URIs containing only files.
  */
 async function expandDirectoriesToFiles(uris: vscode.Uri[]): Promise<vscode.Uri[]> {
     const allFileUris: vscode.Uri[] = [];
@@ -92,7 +91,7 @@ async function expandDirectoriesToFiles(uris: vscode.Uri[]): Promise<vscode.Uri[
                 allFileUris.push(uri);
             }
         } catch (error) {
-            console.error(`[ggpackage] Erro ao acessar o recurso ${uri.fsPath}:`, error);
+            console.error(`[ggpackage] Error accessing resource ${uri.fsPath}:`, error);
         }
     }
     return allFileUris;
@@ -100,21 +99,20 @@ async function expandDirectoriesToFiles(uris: vscode.Uri[]): Promise<vscode.Uri[
 
 export function activate(context: vscode.ExtensionContext) {
     
-    // COMANDO DE TESTE ADICIONADO AQUI
+    // TEST COMMAND ADDED HERE
     let testDisposable = vscode.commands.registerCommand('ggpackage.testMenu', () => {
-        vscode.window.showInformationMessage('O MENU DE TESTE APARECEU E FUNCIONOU!');
+        vscode.window.showInformationMessage('THE TEST MENU APPEARED AND WORKED!');
     });
     context.subscriptions.push(testDisposable);
 
-
-    // O COMANDO ORIGINAL CONTINUA AQUI
+    // THE ORIGINAL COMMAND CONTINUES HERE
     let disposable = vscode.commands.registerCommand('sfdx-power-tools.generatePackage', async (...args: any[]) => {
         try {
-            console.log('Argumentos recebidos pelo comando:', JSON.stringify(args, null, 2));
+            console.log('Arguments received by the command:', JSON.stringify(args, null, 2));
 
             const selectedUris = getUrisFromArgs(...args);
             if (selectedUris.length === 0) {
-                vscode.window.showInformationMessage('Nenhum arquivo ou pasta selecionado.');
+                vscode.window.showInformationMessage('No files or folders selected.');
                 return;
             }
 
@@ -122,7 +120,7 @@ export function activate(context: vscode.ExtensionContext) {
             const packageMap = new Map<string, string[]>();
 
             if (filesToProcess.length === 0) {
-                vscode.window.showInformationMessage('Nenhum arquivo encontrado na seleção.');
+                vscode.window.showInformationMessage('No files found in the selection.');
                 return;
             }
 
@@ -136,18 +134,18 @@ export function activate(context: vscode.ExtensionContext) {
                     let metadataType: string | undefined;
 
                     const objectsIndex = pathParts.lastIndexOf('objects');
-                    // LÓGICA REFINADA PARA OBJETOS E SEUS FILHOS
+                    // REFINED LOGIC FOR OBJECTS AND THEIR CHILDREN
                     if (objectsIndex !== -1 && objectsIndex < pathParts.length - 1) {
                         const objectFolderIndex = objectsIndex + 1;
                         const objectName = pathParts[objectFolderIndex];
                         const remainingParts = pathParts.slice(objectFolderIndex + 1);
 
-                        // Cenário 1: É o arquivo do objeto principal (ex: .../objects/Account/Account.object-meta.xml)
+                        // Scenario 1: It's the main object file (e.g., .../objects/Account/Account.object-meta.xml)
                         if (remainingParts.length === 1 && remainingParts[0] === `${objectName}.object-meta.xml`) {
                             metadataType = 'CustomObject';
                             componentName = objectName;
                         } 
-                        // Cenário 2: É um componente filho (ex: .../objects/Account/fields/MyField.field-meta.xml)
+                        // Scenario 2: It's a child component (e.g., .../objects/Account/fields/MyField.field-meta.xml)
                         else if (remainingParts.length === 2) {
                             const subtypeFolder = remainingParts[0];
                             const fileName = remainingParts[1];
@@ -157,7 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
                             }
                         }
                     } 
-                    // LÓGICA PADRÃO PARA OUTROS METADADOS
+                    // DEFAULT LOGIC FOR OTHER METADATA
                     else { 
                         const parentFolderName = path.basename(path.dirname(filePath));
                         metadataType = metadataMap.get(parentFolderName);
@@ -180,16 +178,16 @@ export function activate(context: vscode.ExtensionContext) {
                         }
                     }
                 } catch (e) {
-                    console.error(`[ggpackage] Falha ao processar o arquivo ${file.fsPath}:`, e);
+                    console.error(`[ggpackage] Failed to process file ${file.fsPath}:`, e);
                 }
             }
 
             if (packageMap.size === 0) {
-                vscode.window.showInformationMessage('Nenhum metadado reconhecido foi selecionado.');
+                vscode.window.showInformationMessage('No recognized metadata was selected.');
                 return;
             }
 
-            // --- Geração e salvamento do XML (sem alterações) ---
+            // --- XML generation and saving (no changes) ---
             let xmlString = '<?xml version="1.0" encoding="UTF-8"?>\n<Package xmlns="http://soap.sforce.com/2006/04/metadata">\n';
             const sortedTypes = Array.from(packageMap.keys()).sort();
             sortedTypes.forEach(type => {
@@ -216,8 +214,8 @@ export function activate(context: vscode.ExtensionContext) {
                 await vscode.window.showTextDocument(document);
             }
         } catch (error) {
-            console.error('[ggpackage] Ocorreu um erro inesperado:', error);
-            vscode.window.showErrorMessage('Um erro inesperado ocorreu. Verifique o Console de Depuração.');
+            console.error('[ggpackage] An unexpected error occurred:', error);
+            vscode.window.showErrorMessage('An unexpected error occurred. Please check the Debug Console.');
         }
     });
 

@@ -1,13 +1,13 @@
 {
   "name": "ggpackage",
-  "displayName": "ggpackage",
-  "description": "Tool used to generate salesforce package.xml",
+  "displayName": "ggpackage - Salesforce Package.xml Generator",
+  "description": "A tool to generate a Salesforce manifest file (package.xml) from selected files and folders.",
   "version": "0.0.1",
   "publisher": "ggarpelli",
   "icon": "icon.png",
   "repository": {
       "type": "git",
-      "url": "https://github.com/ggarpelli/XXXXXXXXXX"
+      "url": "https://github.com/ggarpelli/ggpackage.git"
   },
   "engines": {
     "vscode": "^1.84.0"
@@ -23,7 +23,7 @@
     "commands": [
       {
         "command": "sfdx-power-tools.generatePackage",
-        "title": "Gerar Package.xml"
+        "title": "Generate Package.xml"
       }
     ],
     "menus": {
