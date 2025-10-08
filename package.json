@@ -1,8 +1,8 @@
 {
   "name": "ggpackage",
   "displayName": "ggpackage - Salesforce Package.xml Generator",
-  "description": "A tool to generate a Salesforce manifest file (package.xml) from selected files and folders.",
-  "version": "0.0.1",
+  "description": "This extension helps you generate Salesforce package.xml files with an interactive component picker",
+  "version": "0.0.2",
   "publisher": "ggarpelli",
   "icon": "icon.png",
   "repository": {
@@ -23,21 +23,22 @@
     "commands": [
       {
         "command": "sfdx-power-tools.generatePackage",
-        "title": "Generate Package.xml"
+        "title": "ggpackage: Generate Package.xml...",
+        "category": "ggpackage"
       }
     ],
     "menus": {
       "explorer/context": [
         {
           "command": "sfdx-power-tools.generatePackage",
-          "when": "resourcePath =~ /force-app/",
+          "when": "resourcePath",
           "group": "navigation"
         }
       ],
       "scm/resourceState/context": [
         {
           "command": "sfdx-power-tools.generatePackage",
-          "when": "scmResource.resourceUri.path =~ /force-app/",
+          "when": "scmResourceState",
           "group": "navigation"
         }
       ]
@@ -71,3 +72,4 @@
     "@vscode/test-electron": "^2.3.6"
   }
 }
+
