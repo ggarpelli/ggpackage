@@ -2,7 +2,7 @@
   "name": "ggpackage",
   "displayName": "ggpackage - Salesforce Package.xml Generator",
   "description": "This extension helps you generate Salesforce package.xml files with an interactive component picker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "ggarpelli",
   "icon": "icon.png",
   "repository": {
